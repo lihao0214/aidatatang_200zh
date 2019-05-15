@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Copyright 2018 Beijing DataTang Tech. Co. Ltd. (Authors: )
-#           2017 Jiayu Du
-#           2017 Xingyu Na
-#           2017 Bengu Wu
-#           2017 Hao Zheng
-# Apache 2.0
+# Copyright 2019 Beijing DataTang Tech. Co. Ltd. (Authors: Liyuan Wang)
+
 
 # This is a shell script, but it's recommended that you run the commands one by
 # one by copying and pasting into the shell.
@@ -22,7 +18,7 @@
 data=/export/a05/xna/data
 data_url=www.openslr.org/resources/62
 
-# You can obtain the database by uncommting the follwing lines
+# Obtain the database
 #[ -d $data ] || mkdir -p $data || exit 1;
 local/download_and_untar.sh $data $data_url data_aidatatang || exit 1;
 
@@ -43,8 +39,7 @@ local/aidatatang_train_lms2.sh || exit 1;
 local/aidatatang_format_data.sh
 
 # Now make MFCC plus pitch features.
-# mfccdir should be some place with a largish disk where you
-# want to store MFCC features.
+# mfccdir should be some place with a largish disk where you want to store MFCC features.
 mfccdir=mfcc
 for x in train dev test; do
   steps/make_mfcc_pitch.sh --cmd "$train_cmd" --nj 10 data/$x exp/make_mfcc/$x $mfccdir || exit 1;
