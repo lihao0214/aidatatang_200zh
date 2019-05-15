@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Copyright 2017 Xingyu Na
+# Apache 2.0
 
 . ./path.sh || exit 1;
 
