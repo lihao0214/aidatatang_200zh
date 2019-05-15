@@ -6,7 +6,7 @@ set -e
 
 # configs for 'chain'
 affix=
-stage=11
+stage=0
 train_stage=-10
 get_egs_stage=-10
 dir=exp/chain/tdnn_1a  # Note: _sp will get added to this
@@ -158,7 +158,6 @@ if [ $stage -le 11 ]; then
     --trainer.optimization.final-effective-lrate $final_effective_lrate \
     --trainer.max-param-change $max_param_change \
     --cleanup.remove-egs $remove_egs \
-    --use-gpu wait \
     --feat-dir data/${train_set}_hires \
     --tree-dir $treedir \
     --lat-dir exp/tri5a_sp_lats \
