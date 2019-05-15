@@ -19,19 +19,19 @@
 
 
 # corpus directory and download URL
-data=/home/ldf/corpus/aidatatang_200zh
+data=/export/a05/xna/data
 data_url=www.openslr.org/resources/62
 
 # You can obtain the database by uncommting the follwing lines
 #[ -d $data ] || mkdir -p $data || exit 1;
-######local/download_and_untar.sh $data $data_url data_aidatatang || exit 1;
+local/download_and_untar.sh $data $data_url data_aidatatang || exit 1;
 
 # Data Preparation: generate text, wav.scp, utt2spk, spk2utt
-#####local/aidatatang_data_prep.sh $data/corpus $data/transcript || exit 1;
+local/aidatatang_data_prep.sh $data/corpus $data/transcript || exit 1;
 
 # Lexicon Preparation: build a large lexicon that invovles words in both the training and decoding
-#####local/aidatatang_prepare_dict.sh || exit 1;
-:<<!
+local/aidatatang_prepare_dict.sh || exit 1;
+
 # Prepare Language Stuff
 # Phone Sets, questions, L compilation
 utils/prepare_lang.sh --position-dependent-phones false data/local/dict "<UNK>" data/local/lang data/lang || exit 1;
@@ -137,13 +137,12 @@ steps/decode_fmllr.sh --cmd "$decode_cmd" --nj 10 --config conf/decode.config \
 
 steps/align_fmllr.sh --cmd "$train_cmd" --nj 10 \
   data/train data/lang exp/tri5a exp/tri5a_ali || exit 1;
-!
+
 # nnet3
-####local/nnet3/tuning/run_tdnn_1a.sh
-local/nnet3/tuning/run_tdnn_2a.sh
+local/nnet3/run_tdnn.sh
 
 # chain
-#local/chain/run_tdnn.sh
+local/chain/run_tdnn.sh
 
 # getting results (see RESULTS file)
 for x in exp/*/decode_test; do [ -d $x ] && grep WER $x/cer_* | utils/best_wer.sh; done 2>/dev/null
