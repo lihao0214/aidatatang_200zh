@@ -8,7 +8,7 @@ set -e
 
 # configs for 'chain'
 affix=
-stage=8
+stage=0
 train_stage=-10
 get_egs_stage=-10
 dir=exp/chain/tdnn_2a  # Note: _sp will get added to this
