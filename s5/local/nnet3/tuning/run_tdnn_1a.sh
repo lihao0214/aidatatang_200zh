@@ -10,7 +10,7 @@
 # --num-threads 16 and --minibatch-size 128.
 set -e
 
-stage=8
+stage=0
 train_stage=-10
 affix=
 common_egs_dir=
@@ -95,7 +95,6 @@ if [ $stage -le 8 ]; then
     --egs.dir "$common_egs_dir" \
     --cleanup.remove-egs $remove_egs \
     --cleanup.preserve-model-interval 500 \
-    --use-gpu wait \
     --feat-dir=data/${train_set}_hires \
     --ali-dir $ali_dir \
     --lang data/lang \
